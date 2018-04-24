@@ -44,22 +44,25 @@ public class FileSearch {
 
     public void search(String FileName, File directory, boolean searchinfolder) throws FileNotFoundException {
         if (!directory.isDirectory()) throw new FileNotFoundException();
-        if (directory.canRead()) {
-            for (File temp : directory.listFiles()) {
-                if (searchinfolder && temp.isDirectory())
-                    search(FileName, temp, searchinfolder);
-                else {
-                    if (temp.getName().equals(FileName)) {
-                        result.add(temp.getAbsoluteFile().toString());
+        if (directory.isDirectory()) {
+            if (directory.canRead())
+                for (File temp : directory.listFiles()) {
+                    if (searchinfolder && temp.isDirectory())
+                        search(FileName, temp, searchinfolder);
+                    else {
+                        if (temp.getName().equals(FileName)) {
+                            result.add(temp.getAbsoluteFile().toString());
+                        }
                     }
                 }
-            }
+            else System.out.println(directory.getAbsoluteFile() + "File can not be read");
         } else System.out.println(directory.getAbsoluteFile() + "Denied");
     }
 
     /**
      * Поиск файла с заданным в командной строке именем в указанной ключом -d директории, по умолчанию в текущей директории.
      * Ключ -r указывает на необходимость поиска также во всех поддиректориях.
+     *
      * @param args
      * @throws FileNotFoundException
      */
