@@ -42,6 +42,13 @@ public class FileSearch {
         return Arrays.hashCode(result.toArray());
     }
 
+    /**
+     * Проверить и найти путь к файлy.
+     * @param FileName
+     * @param directory
+     * @param searchinfolder
+     * @throws FileNotFoundException
+     */
     public void search(String FileName, File directory, boolean searchinfolder) throws FileNotFoundException {
         if (!directory.isDirectory()) throw new FileNotFoundException();
         if (directory.isDirectory()) {
