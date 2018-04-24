@@ -69,6 +69,7 @@ public class FileSearch {
     }
 
     /**
+     * Ключ -h, чтобы начать поиск.
      * Поиск файла с заданным в командной строке именем в указанной ключом -d директории, по умолчанию в текущей директории.
      * Ключ -r указывает на необходимость поиска также во всех поддиректориях.
      *
@@ -95,9 +96,9 @@ public class FileSearch {
         }
         String fileName = args[args.length - 1];
 
-        try{
+        try {
             fileSearch.search(fileName, directory, CmdLine.contains("-r"));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.toString());
             return;
         }
