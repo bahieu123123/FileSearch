@@ -45,16 +45,18 @@ public class FileSearch {
     public void search(String FileName, File directory, boolean searchinfolder) throws FileNotFoundException {
         if (!directory.isDirectory()) throw new FileNotFoundException();
         if (directory.isDirectory()) {
-            for (File temp : directory.listFiles()) {
-                if (searchinfolder && temp.isDirectory())
-                    search(FileName, temp, searchinfolder);
-                else {
-                    if (temp.getName().equals(FileName)) {
-                        result.add(temp.getAbsoluteFile().toString());
+            if (directory.canRead()) {
+                for (File temp : directory.listFiles()) {
+                    if (searchinfolder && temp.isDirectory())
+                        search(FileName, temp, searchinfolder);
+                    else {
+                        if (temp.getName().equals(FileName)) {
+                            result.add(temp.getAbsoluteFile().toString());
+                        }
                     }
                 }
-            }
-        } else System.out.println(directory.getAbsoluteFile() + "Permission denied");
+            } else System.out.println(directory.getAbsoluteFile() + "Permission denied");
+        }
     }
 
     /**
