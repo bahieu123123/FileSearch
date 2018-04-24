@@ -72,7 +72,6 @@ public class FileSearch {
                     "[-r] - search file in subdirectories \n");
             return;
         }
-        if (args.length < 1 || args.length > 4) throw new IndexOutOfBoundsException();
         File directory = new File(new File("").getAbsolutePath());
 
         if (CmdLine.contains("-d")) {
