@@ -44,18 +44,19 @@ public class FileSearch {
 
     /**
      * Проверить и найти путь к файлy.
+     * Поиск файла с заданным в командной строке именем в указанной ключом директории, по умолчанию в текущей директории.
      * @param FileName
      * @param directory
-     * @param searchinfolder
+     * @param searchinsubfolder
      * @throws FileNotFoundException
      */
-    public void search(String FileName, File directory, boolean searchinfolder) throws FileNotFoundException {
+    public void search(String FileName, File directory, boolean searchinsubfolder) throws FileNotFoundException {
         if (!directory.isDirectory()) throw new FileNotFoundException();
         if (directory.isDirectory()) {
             if (directory.canRead()) {
                 for (File temp : directory.listFiles()) {
-                    if (searchinfolder && temp.isDirectory())
-                        search(FileName, temp, searchinfolder);
+                    if (searchinsubfolder && temp.isDirectory())
+                        search(FileName, temp, searchinsubfolder);
                     else {
                         if (temp.getName().equals(FileName)) {
                             result.add(temp.getAbsoluteFile().toString());
