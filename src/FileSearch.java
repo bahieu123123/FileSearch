@@ -95,14 +95,7 @@ public class FileSearch {
             System.out.println("Directory where you want to check the presence of a file: " + directory);
         }
         String fileName = args[args.length - 1];
-
-        try {
-            fileSearch.search(fileName, directory, CmdLine.contains("-r"));
-        } catch (Exception e) {
-            System.err.println(e.toString());
-            return;
-        }
-
+        
         System.out.println("The name of the found file: " + fileName);
         List<String> result = fileSearch.getResult();
         if (result.size() == 0) System.out.println("There is no files in this directory!");
