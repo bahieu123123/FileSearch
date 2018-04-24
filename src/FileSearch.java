@@ -85,7 +85,7 @@ public class FileSearch {
         String fileName = args[args.length - 1];
         System.out.println("The name of the found file: " + fileName);
         List<String> result = fileSearch.getResult();
-        if (result.size() == 0) System.out.println("There is no such file in this directory!");
+        if (result.size() == 0) System.out.println("There is no files in this directory!");
         else {
             System.out.println("/nFound " + result.size() + " result:\n");
             for (String str : result) {
