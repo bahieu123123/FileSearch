@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileSearch {
-    private List<String> result = new ArrayList<>();
+    private ArrayList<String> result = new ArrayList<>();
 
-    public List<String> getResult() {
+    public ArrayList<String> getResult() {
         return result;
     }
 
@@ -46,20 +46,20 @@ public class FileSearch {
      * Проверить и найти путь к файлy.
      * Поиск файла с заданным в командной строке именем в указанной ключом директории, по умолчанию в текущей директории.
      *
-     * @param FileName
+     * @param fileName
      * @param directory
-     * @param searchinsubfolder
+     * @param searchInSubFolder
      * @throws FileNotFoundException
      */
-    public void search(String FileName, File directory, boolean searchinsubfolder) throws FileNotFoundException {
+    public void search(String fileName, File directory, boolean searchInSubFolder) throws FileNotFoundException {
         if (!directory.isDirectory()) throw new FileNotFoundException();
         if (directory.isDirectory()) {
             if (directory.canRead()) {
                 for (File temp : directory.listFiles()) {
-                    if (searchinsubfolder && temp.isDirectory())
-                        search(FileName, temp, searchinsubfolder);
+                    if (searchInSubFolder && temp.isDirectory())
+                        search(fileName, temp, searchInSubFolder);
                     else {
-                        if (temp.getName().equals(FileName)) {
+                        if (temp.getName().equals(fileName)) {
                             result.add(temp.getAbsoluteFile().toString());
                         }
                     }
@@ -69,7 +69,7 @@ public class FileSearch {
     }
 
     /**
-     * Ключ -h, чтобы начать поиск.
+     * search, проложить маршрут.
      * Поиск файла с заданным в командной строке именем в указанной ключом -d директории, по умолчанию в текущей директории.
      * Ключ -r указывает на необходимость поиска также во всех поддиректориях.
      *
@@ -78,8 +78,8 @@ public class FileSearch {
      */
     public static void main(String[] args) throws FileNotFoundException {
         FileSearch fileSearch = new FileSearch();
-        List<String> CmdLine = Arrays.asList(args);
-        if (CmdLine.contains("-h")) {
+        List<String> cmdLine = Arrays.asList(args);
+        if (cmdLine.contains("search")) {
             System.out.println("Enter the commands you need and the file name, \n" +
                     "[-d] - search file in directory \n" +
                     "[-r] - search file in subdirectories \n");
@@ -89,18 +89,24 @@ public class FileSearch {
 
         File directory = new File(new File("").getAbsolutePath());
 
-        if (CmdLine.contains("-d")) {
-            String directoryName = CmdLine.get(CmdLine.indexOf("-d") + 1).toString();
+        if (cmdLine.contains("-d")) {
+            String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
             directory = new File(directoryName);
             System.out.println("Directory where you want to check the presence of a file: " + directory);
         }
         String fileName = args[args.length - 1];
-        
+        try {
+            fileSearch.search(fileName, directory, cmdLine.contains("-r"));
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            return;
+        }
+
         System.out.println("The name of the found file: " + fileName);
         List<String> result = fileSearch.getResult();
         if (result.size() == 0) System.out.println("There is no files in this directory!");
         else {
-            System.out.println("/nFound " + result.size() + " result:\n");
+            System.out.println("\n Found " + result.size() + " result:\n");
             for (String str : result) {
                 System.out.println(str);
             }
