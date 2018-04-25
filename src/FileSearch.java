@@ -69,7 +69,7 @@ public class FileSearch {
     }
 
     /**
-     * search, проложить маршрут.
+     * find проложить маршрут.
      * Поиск файла с заданным в командной строке именем в указанной ключом -d директории, по умолчанию в текущей директории.
      * Ключ -r указывает на необходимость поиска также во всех поддиректориях.
      *
@@ -79,7 +79,7 @@ public class FileSearch {
     public static void main(String[] args) throws FileNotFoundException {
         FileSearch fileSearch = new FileSearch();
         List<String> cmdLine = Arrays.asList(args);
-        if (cmdLine.contains("search")) {
+        if (cmdLine.contains("find")) {
             System.out.println("Enter the commands you need and the file name, \n" +
                     "[-d] - search file in directory \n" +
                     "[-r] - search file in subdirectories \n");
