@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileSearch {
-    private ArrayList<String> result = new ArrayList<>();
+    private List<String> result = new ArrayList<>();
 
-    public ArrayList<String> getResult() {
+    public List<String> getResult() {
         return result;
     }
 
@@ -42,6 +42,7 @@ public class FileSearch {
         return Arrays.hashCode(result.toArray());
     }
 
+
     /**
      * Проверить и найти путь к файлy.
      * Поиск файла с заданным в командной строке именем в указанной ключом директории, по умолчанию в текущей директории.
@@ -58,10 +59,8 @@ public class FileSearch {
                 for (File temp : directory.listFiles()) {
                     if (searchInSubFolder && temp.isDirectory())
                         search(fileName, temp, searchInSubFolder);
-                    else {
-                        if (temp.getName().equals(fileName)) {
-                            result.add(temp.getAbsoluteFile().toString());
-                        }
+                    if (temp.getName().equals(fileName)) {
+                        result.add(temp.getAbsoluteFile().toString());
                     }
                 }
             } else System.out.println(directory.getAbsoluteFile() + "Permission denied");
@@ -74,9 +73,8 @@ public class FileSearch {
      * Ключ -r указывает на необходимость поиска также во всех поддиректориях.
      *
      * @param args
-     * @throws FileNotFoundException
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)  {
         FileSearch fileSearch = new FileSearch();
         List<String> cmdLine = Arrays.asList(args);
         if (cmdLine.contains("find")) {
@@ -92,13 +90,15 @@ public class FileSearch {
         if (cmdLine.contains("-d")) {
             String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
             directory = new File(directoryName);
-            System.out.println("Directory where you want to check the presence of a file: " + directory);
+            if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
+            else System.out.println("Directory where you want to check the presence of a file: " + directory);
         }
+
         String fileName = args[args.length - 1];
         try {
             fileSearch.search(fileName, directory, cmdLine.contains("-r"));
         } catch (Exception e) {
-            System.err.println(e.toString());
+            System.out.println("File not found!");
             return;
         }
 
