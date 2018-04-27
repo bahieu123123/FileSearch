@@ -8,6 +8,8 @@ public class FileSearch {
     private List<String> result = new ArrayList<>();
 
     public List<String> getResult() {
+        if (result.size()==0) result.add("File not found!");
+
         return result;
     }
 
@@ -52,8 +54,9 @@ public class FileSearch {
      * @param searchInSubFolder
      * @throws FileNotFoundException
      */
-    public void search(String fileName, File directory, boolean searchInSubFolder) throws FileNotFoundException {
-        if (!directory.isDirectory()) throw new FileNotFoundException();
+    public void search(String fileName, File directory, boolean searchInSubFolder) {
+        try {
+        if (!directory.isDirectory()) result.add("Directory not found!");
         if (directory.isDirectory()) {
             if (directory.canRead()) {
                 for (File temp : directory.listFiles()) {
@@ -65,7 +68,12 @@ public class FileSearch {
                 }
             } else System.out.println(directory.getAbsoluteFile() + "Permission denied");
         }
+    }catch (Exception e){
+            result.add("File not found!");
+            return;
+        }
     }
+
 
     /**
      * find проложить маршрут.
@@ -74,7 +82,7 @@ public class FileSearch {
      *
      * @param args
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         FileSearch fileSearch = new FileSearch();
         List<String> cmdLine = Arrays.asList(args);
         if (cmdLine.contains("find")) {
@@ -83,7 +91,7 @@ public class FileSearch {
                     "[-r] - search file in subdirectories \n");
             return;
         }
-        if (args.length < 1 || args.length > 4) throw new IndexOutOfBoundsException();
+        if (args.length < 1 || args.length > 4) System.out.println("Index out of bounds exception.");
 
         File directory = new File(new File("").getAbsolutePath());
 

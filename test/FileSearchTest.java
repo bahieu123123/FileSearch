@@ -4,12 +4,15 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 class FileSearchTest {
     private FileSearch FS = new FileSearch();
     private FileSearch FS1 = new FileSearch();
     private FileSearch FS2 = new FileSearch();
     private FileSearch FS3 = new FileSearch();
+    private FileSearch FS4 = new FileSearch();
+    private FileSearch FS5 = new FileSearch();
 
     @Test
     void search() throws FileNotFoundException {
@@ -31,5 +34,11 @@ class FileSearchTest {
         String f6 = new File("input/dir/dir1/dir1/dir1").getAbsoluteFile().toString();
         FS3.search("dir1",new File("input"),true);
         assertEquals(Arrays.asList(f6,f5,f4),FS3.getResult());
+
+        FS4.search("dir",new File("inptu"),true);
+        assertEquals(Arrays.asList("Directory not found!"),FS4.getResult());
+
+        FS5.search("dri",new File("input"),false);
+        assertEquals(Arrays.asList("File not found!"),FS5.getResult());
     }
 }
