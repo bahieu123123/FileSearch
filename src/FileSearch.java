@@ -59,11 +59,16 @@ public class FileSearch {
         if (!directory.isDirectory()) result.add("Directory not found!");
         if (directory.isDirectory()) {
             if (directory.canRead()) {
+                if(directory.getName().equals(fileName)){
+                    result.add(directory.getAbsoluteFile().toString());
+                }
                 for (File temp : directory.listFiles()) {
                     if (searchInSubFolder && temp.isDirectory())
                         search(fileName, temp, searchInSubFolder);
-                    if (temp.getName().equals(fileName)) {
-                        result.add(temp.getAbsoluteFile().toString());
+                    else {
+                        if (temp.getName().equals(fileName)) {
+                            result.add(temp.getAbsoluteFile().toString());
+                        }
                     }
                 }
             } else System.out.println(directory.getAbsoluteFile() + "Permission denied");

@@ -1,10 +1,8 @@
 import org.junit.jupiter.api.Test;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 class FileSearchTest {
     private FileSearch FS = new FileSearch();
@@ -15,7 +13,7 @@ class FileSearchTest {
     private FileSearch FS5 = new FileSearch();
 
     @Test
-    void search() throws FileNotFoundException {
+    void search() {
         String f = new File("input/findFile").getAbsoluteFile().toString();
         FS.search("findFile", new File("input"), false);
         assertEquals(Arrays.asList(f), FS.getResult());
@@ -32,8 +30,8 @@ class FileSearchTest {
         String f4 = new File("input/dir/dir1").getAbsoluteFile().toString();
         String f5 = new File("input/dir/dir1/dir1").getAbsoluteFile().toString();
         String f6 = new File("input/dir/dir1/dir1/dir1").getAbsoluteFile().toString();
-        FS3.search("dir1",new File("input"),true);
-        assertEquals(Arrays.asList(f6,f5,f4),FS3.getResult());
+        FS3.search("dir1",new File("input/dir/dir1"),true);
+        assertEquals(Arrays.asList(f4,f5,f6),FS3.getResult());
 
         FS4.search("dir",new File("inptu"),true);
         assertEquals(Arrays.asList("Directory not found!"),FS4.getResult());
