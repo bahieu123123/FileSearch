@@ -1,4 +1,4 @@
-# FileSearch
+# Lesson2.FileSearch
 Lesson2
 Вариант 4 -- find
 

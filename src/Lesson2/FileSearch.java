@@ -1,3 +1,5 @@
+package Lesson2;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -55,7 +57,6 @@ public class FileSearch {
      * @throws FileNotFoundException
      */
     public void search(String fileName, File directory, boolean searchInSubFolder) {
-        try {
         if (!directory.isDirectory()) result.add("Directory not found!");
         if (directory.isDirectory()) {
             if (directory.canRead()) {
@@ -72,10 +73,6 @@ public class FileSearch {
                     }
                 }
             } else System.out.println(directory.getAbsoluteFile() + "Permission denied");
-        }
-    }catch (Exception e){
-            result.add("File not found!");
-            return;
         }
     }
 
