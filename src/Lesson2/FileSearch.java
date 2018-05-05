@@ -1,17 +1,16 @@
 package Lesson2;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class FileSearch {
-    private List<String> result = new ArrayList<>();
+    private ArrayList<String> result = new ArrayList<>();
 
-    public List<String> getResult() {
-        if (result.size()==0) result.add("File not found!");
-
+    public ArrayList<String> getResult() {
+        if (result.isEmpty()) result.add("There is no files in this directory " +
+                "or file you want to check does not exist!");
         return result;
     }
 
@@ -54,7 +53,6 @@ public class FileSearch {
      * @param fileName
      * @param directory
      * @param searchInSubFolder
-     * @throws FileNotFoundException
      */
     public void search(String fileName, File directory, boolean searchInSubFolder) {
         if (!directory.isDirectory()) result.add("Directory not found!");
@@ -72,7 +70,7 @@ public class FileSearch {
                         }
                     }
                 }
-            } else System.out.println(directory.getAbsoluteFile() + "Permission denied");
+            } else result.add("Permission denied");
         }
     }
 
@@ -114,12 +112,9 @@ public class FileSearch {
 
         System.out.println("The name of the found file: " + fileName);
         List<String> result = fileSearch.getResult();
-        if (result.size() == 0) System.out.println("There is no files in this directory!");
-        else {
-            System.out.println("\n Found " + result.size() + " result:\n");
+        System.out.println("\nFound " + " result:\n");
             for (String str : result) {
                 System.out.println(str);
-            }
         }
     }
 
