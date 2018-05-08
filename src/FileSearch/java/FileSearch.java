@@ -1,4 +1,4 @@
-package Lesson2;
+package FileSearch.java;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,16 +58,11 @@ public class FileSearch {
         if (!directory.isDirectory()) result.add("Directory not found!");
         if (directory.isDirectory()) {
             if (directory.canRead()) {
-                if(directory.getName().equals(fileName)){
-                    result.add(directory.getAbsoluteFile().toString());
-                }
                 for (File temp : directory.listFiles()) {
                     if (searchInSubFolder && temp.isDirectory())
                         search(fileName, temp, searchInSubFolder);
-                    else {
-                        if (temp.getName().equals(fileName)) {
-                            result.add(temp.getAbsoluteFile().toString());
-                        }
+                    if (temp.getName().equals(fileName)) {
+                        result.add(temp.getAbsoluteFile().toString());
                     }
                 }
             } else result.add("Permission denied");
@@ -113,8 +108,8 @@ public class FileSearch {
         System.out.println("The name of the found file: " + fileName);
         List<String> result = fileSearch.getResult();
         System.out.println("\nFound " + " result:\n");
-            for (String str : result) {
-                System.out.println(str);
+        for (String str : result) {
+            System.out.println(str);
         }
     }
 
