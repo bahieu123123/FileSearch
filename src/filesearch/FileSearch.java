@@ -1,4 +1,4 @@
-package FileSearch.java;
+package filesearch;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,19 +14,6 @@ public class FileSearch {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj instanceof FileSearch) {
-            FileSearch other = (FileSearch) obj;
-            for (int i = 0; i < this.result.size(); i++) {
-                if (this.result.get(i).equals(other.result.get(i)))
-                    return false;
-            }
-            return true;
-        }
-        return true;
-    }
 
     @Override
     public String toString() {
@@ -61,7 +48,7 @@ public class FileSearch {
                 for (File temp : directory.listFiles()) {
                     if (searchInSubFolder && temp.isDirectory())
                         search(fileName, temp, searchInSubFolder);
-                    if (temp.getName().equals(fileName)) {
+                    if (temp.getName().equalsIgnoreCase(fileName)) {
                         result.add(temp.getAbsoluteFile().toString());
                     }
                 }
@@ -98,12 +85,7 @@ public class FileSearch {
         }
 
         String fileName = args[args.length - 1];
-        try {
-            fileSearch.search(fileName, directory, cmdLine.contains("-r"));
-        } catch (Exception e) {
-            System.out.println("File not found!");
-            return;
-        }
+        fileSearch.search(fileName, directory, cmdLine.contains("-r"));
 
         System.out.println("The name of the found file: " + fileName);
         List<String> result = fileSearch.getResult();

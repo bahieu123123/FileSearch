@@ -1,4 +1,4 @@
-package FileSearch.java;
+package filesearch;
 
 import org.junit.jupiter.api.Test;
 import java.io.File;
