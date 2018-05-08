@@ -40,6 +40,6 @@ class FileSearchTest {
         assertEquals(Arrays.asList("Directory not found!"),FS4.getResult());
 
         FS5.search("dri",new File("input"),false);
-        assertEquals(Arrays.asList("File not found!"),FS5.getResult());
+        assertEquals(Arrays.asList("There is no files in this directory or file you want to check does not exist!"),FS5.getResult());
     }
 }
