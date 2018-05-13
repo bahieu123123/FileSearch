@@ -73,25 +73,42 @@ public class FileSearch {
                     "[-r] - search file in subdirectories \n");
             return;
         }
-        if (args.length < 1 || args.length > 4) System.out.println("Index out of bounds exception.");
 
         File directory = new File(new File("").getAbsolutePath());
 
         if (cmdLine.contains("-d")) {
-            String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
-            directory = new File(directoryName);
+            if (args[args.length - 1].equals("-d"))
+                System.out.println("Directory where you want to check does not exist!");
+            else {
+                String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
+                directory = new File(directoryName);
+            }
             if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
             else System.out.println("Directory where you want to check the presence of a file: " + directory);
         }
+        if (args[0].equals("-r")) {
+            String fileName = args[args.length - 1];
+            fileSearch.search(fileName, directory, cmdLine.contains("-r"));
 
-        String fileName = args[args.length - 1];
-        fileSearch.search(fileName, directory, cmdLine.contains("-r"));
+            System.out.println("The name of the found file: " + fileName);
+            List<String> result = fileSearch.getResult();
+            System.out.println("\nFound " + " result:\n");
+            for (String str : result) {
+                System.out.println(str);
+            }
+        } else {
+            if (args.length <= 2 || args.length > 4) System.out.println("File name or directory name not yet written!");
+            else {
+                String fileName = args[args.length - 1];
+                fileSearch.search(fileName, directory, cmdLine.contains("-r"));
 
-        System.out.println("The name of the found file: " + fileName);
-        List<String> result = fileSearch.getResult();
-        System.out.println("\nFound " + " result:\n");
-        for (String str : result) {
-            System.out.println(str);
+                System.out.println("The name of the found file: " + fileName);
+                List<String> result = fileSearch.getResult();
+                System.out.println("\nFound " + " result:\n");
+                for (String str : result) {
+                    System.out.println(str);
+                }
+            }
         }
     }
 
