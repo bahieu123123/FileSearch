@@ -1,11 +1,23 @@
 package filesearch;
 
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class FileSearch {
+    @Option(name = "-r", metaVar = "SubDirect", usage = "Find Subdirectory")
+    private boolean subDirectory;
+
+    @Option(name = "-d", metaVar = "Directory", usage = "Path to the File")
+    private String directory;
+
+    @Argument(metaVar = "FileName", required = true, usage = "File name")
+    private String fileName;
+
     private ArrayList<String> result = new ArrayList<>();
 
     public ArrayList<String> getResult() {
@@ -13,25 +25,6 @@ public class FileSearch {
                 "or file you want to check does not exist!");
         return result;
     }
-
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        for (String str : this.result) {
-            sb.append(str).append("; ");
-        }
-        sb.delete(sb.length() - 2, sb.length());
-        sb.append("}");
-        return sb.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(result.toArray());
-    }
-
 
     /**
      * Проверить и найти путь к файлy.
@@ -55,6 +48,7 @@ public class FileSearch {
             } else result.add("Permission denied");
         }
     }
+
 
 
     /**
