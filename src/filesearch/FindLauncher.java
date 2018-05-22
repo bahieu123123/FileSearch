@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-public class Launcher {
+public class FindLauncher {
     @Option(name = "-r", metaVar = "SubDirect", usage = "Find Subdirectory")
     private boolean subDirectory;
 
@@ -27,7 +27,7 @@ public class Launcher {
      * @param args
      */
     public static void main(String[] args) {
-        new Launcher().launch(args);
+        new FindLauncher().launch(args);
     }
 
     private void launch(String[] args) {
@@ -45,12 +45,8 @@ public class Launcher {
         File directory = new File(new File("").getAbsolutePath());
 
         if (cmdLine.contains("-d")) {
-            if (args[args.length - 1].equals("-d"))
-                System.out.println("Directory where you want to check does not exist!");
-            else {
-                String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
-                directory = new File(directoryName);
-            }
+            String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
+            directory = new File(directoryName);
             if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
             else System.out.println("Directory where you want to check the presence of a file: " + directory);
         }
@@ -63,7 +59,6 @@ public class Launcher {
         for (String str : result) {
             System.out.println(str);
         }
-
     }
 }
 

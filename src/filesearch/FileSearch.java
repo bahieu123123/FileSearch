@@ -36,5 +36,35 @@ public class FileSearch {
             } else result.add("Permission denied");
         }
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj instanceof FileSearch) {
+            FileSearch other = (FileSearch) obj;
+            for (int i = 0; i < this.result.size(); i++) {
+                if (this.result.get(i).equals(other.result.get(i)))
+                    return false;
+            }
+            return true;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        for (String str : this.result) {
+            sb.append(str).append("; ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(result.toArray());
+    }
 }
 
