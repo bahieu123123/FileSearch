@@ -1,6 +1,8 @@
 package filesearch;
 
+
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -29,11 +31,10 @@ class FileSearchTest {
         FS2.search("findFile2", new File("input"), true);
         assertEquals(Arrays.asList(f2, f3), FS2.getResult());
 
-        String f4 = new File("input/dir/dir1").getAbsoluteFile().toString();
-        String f5 = new File("input/dir/dir1/dir1").getAbsoluteFile().toString();
-        String f6 = new File("input/dir/dir1/dir1/dir1").getAbsoluteFile().toString();
+        String f4 = new File("input/dir/dir0/dir1").getAbsoluteFile().toString();
+        String f5 = new File("input/dir/dir0/dir1/dir1").getAbsoluteFile().toString();
         FS3.search("dir1",new File("input/dir"),true);
-        assertEquals(Arrays.asList(f6,f5,f4),FS3.getResult());
+        assertEquals(Arrays.asList(f4,f5),FS3.getResult());
 
         FS4.search("dir",new File("inptu"),true);
         assertEquals(Arrays.asList("Directory not found!"),FS4.getResult());

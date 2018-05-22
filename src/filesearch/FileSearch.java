@@ -3,9 +3,9 @@ package filesearch;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class FileSearch {
+
     private ArrayList<String> result = new ArrayList<>();
 
     public ArrayList<String> getResult() {
@@ -25,17 +25,22 @@ public class FileSearch {
     public void search(String fileName, File directory, boolean searchInSubFolder) {
         if (!directory.isDirectory()) result.add("Directory not found!");
         if (directory.isDirectory()) {
+            if (directory.getName().equalsIgnoreCase(fileName))
+                result.add(directory.getAbsoluteFile().toString());
             if (directory.canRead()) {
                 for (File temp : directory.listFiles()) {
                     if (searchInSubFolder && temp.isDirectory())
                         search(fileName, temp, searchInSubFolder);
-                    if (temp.getName().equalsIgnoreCase(fileName)) {
-                        result.add(temp.getAbsoluteFile().toString());
+                    else {
+                        if (temp.getName().equals(fileName)) {
+                            result.add(temp.getAbsoluteFile().toString());
+                        }
                     }
                 }
             } else result.add("Permission denied");
         }
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

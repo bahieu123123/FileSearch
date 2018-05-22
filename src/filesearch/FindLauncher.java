@@ -19,6 +19,8 @@ public class FindLauncher {
     @Argument(metaVar = "FileName", required = true, usage = "File name")
     private String fileName;
 
+    
+
     /**
      * find проложить маршрут.
      * Поиск файла с заданным в командной строке именем в указанной ключом -d директории, по умолчанию в текущей директории.
@@ -36,7 +38,7 @@ public class FindLauncher {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
             System.err.println(e.getMessage());
-            System.err.println("find [-r] [-d directory] filename.txt");
+            System.err.println("[-r] [-d directory] filename.txt");
             parser.printUsage(System.err);
             return;
         }
@@ -45,15 +47,21 @@ public class FindLauncher {
         File directory = new File(new File("").getAbsolutePath());
 
         if (cmdLine.contains("-d")) {
-            String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
-            directory = new File(directoryName);
-            if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
-            else System.out.println("Directory where you want to check the presence of a file: " + directory);
+            if (args.length >= 3) {
+                String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
+                directory = new File(directoryName);
+                if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
+                else System.out.println("Directory where you want to check the presence of a file: " + directory);
+            } else System.out.println("File name not found!");
+
         }
+
         String fileName = args[args.length - 1];
+
         fileSearch.search(fileName, directory, cmdLine.contains("-r"));
 
         System.out.println("The name of the found file: " + fileName);
+
         List<String> result = fileSearch.getResult();
         System.out.println("\nFound " + " result:\n");
         for (String str : result) {
