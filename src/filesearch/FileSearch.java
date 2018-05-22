@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 public class FileSearch {
 
     private ArrayList<String> result = new ArrayList<>();
@@ -50,7 +51,7 @@ public class FileSearch {
         if (this == obj) return true;
         if (obj instanceof FileSearch) {
             FileSearch other = (FileSearch) obj;
-            for (int i = 0; i < this.result.size(); i++) {
+            for (int i = 0; i < java.lang.Math.max(this.result.size(),other.result.size()); i++) {
                 if (this.result.get(i).equals(other.result.get(i)))
                     return false;
             }
