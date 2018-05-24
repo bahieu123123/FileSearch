@@ -25,25 +25,18 @@ public class FileSearch {
      */
     public void search(String fileName, File directory, boolean searchInSubFolder) {
         if (!directory.isDirectory()) result.add("Directory not found!");
-        if (directory.isDirectory()) {
-            if (directory.getName().equalsIgnoreCase(fileName))
-                result.add(directory.getAbsoluteFile().toString());
-            if (directory.canRead()) {
-                for (File temp : directory.listFiles()) {
-                    if (searchInSubFolder && temp.isDirectory())
-                        search(fileName, temp, searchInSubFolder);
-                    else {
-                        if (temp.getName().equals(fileName)) {
-                            result.add(temp.getAbsoluteFile().toString());
-                        }
+        if (directory.canRead()) {
+            for (File temp : directory.listFiles()) {
+                if (searchInSubFolder && temp.isDirectory())
+                    search(fileName, temp, searchInSubFolder);
+                else {
+                    if (temp.getName().equals(fileName)) {
+                        result.add(temp.getAbsoluteFile().toString());
                     }
                 }
-            } else result.add("Permission denied");
+            }
         }
     }
-
-
-
 
 
     @Override
@@ -51,7 +44,7 @@ public class FileSearch {
         if (this == obj) return true;
         if (obj instanceof FileSearch) {
             FileSearch other = (FileSearch) obj;
-            for (int i = 0; i < java.lang.Math.max(this.result.size(),other.result.size()); i++) {
+            for (int i = 0; i < java.lang.Math.max(this.result.size(), other.result.size()); i++) {
                 if (this.result.get(i).equals(other.result.get(i)))
                     return false;
             }
@@ -67,7 +60,6 @@ public class FileSearch {
         for (String str : this.result) {
             sb.append(str).append("; ");
         }
-        sb.delete(sb.length() - 2, sb.length());
         sb.append("}");
         return sb.toString();
     }
