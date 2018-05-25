@@ -20,7 +20,6 @@ public class FindLauncher {
     private String fileName;
 
 
-
     /**
      * find проложить маршрут.
      * Поиск файла с заданным в командной строке именем в указанной ключом -d директории, по умолчанию в текущей директории.
@@ -47,18 +46,17 @@ public class FindLauncher {
         File directory = new File(new File("").getAbsolutePath());
 
         if (cmdLine.contains("-d")) {
-            if (args.length >= 3) {
-                String directoryName = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
-                directory = new File(directoryName);
-                if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
-                else System.out.println("Directory where you want to check the presence of a file: " + directory);
-            } else System.out.println("File name not found!");
-
+            this.directory = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
+            directory = new File(this.directory);
+            if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
+            else System.out.println("Directory where you want to check the presence of a file: " + directory);
         }
 
-        String fileName = args[args.length - 1];
+        this.fileName = args[args.length - 1];
 
-        fileSearch.search(fileName, directory, cmdLine.contains("-r"));
+        this.subDirectory=cmdLine.contains("-r");
+
+        fileSearch.search(fileName, directory, subDirectory);
 
         System.out.println("The name of the found file: " + fileName);
 

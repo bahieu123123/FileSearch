@@ -44,7 +44,8 @@ public class FileSearch {
         if (this == obj) return true;
         if (obj instanceof FileSearch) {
             FileSearch other = (FileSearch) obj;
-            for (int i = 0; i < java.lang.Math.max(this.result.size(), other.result.size()); i++) {
+            if (this.result.size()!=other.result.size())return false;
+            for (int i = 0; i < this.result.size(); i++) {
                 if (this.result.get(i).equals(other.result.get(i)))
                     return false;
             }
