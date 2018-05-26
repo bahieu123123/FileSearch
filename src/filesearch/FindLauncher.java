@@ -42,20 +42,15 @@ public class FindLauncher {
             return;
         }
         FileSearch fileSearch = new FileSearch();
-        List<String> cmdLine = Arrays.asList(args);
-        File directory = new File(new File("").getAbsolutePath());
-
-        if (cmdLine.contains("-d")) {
-            this.directory = cmdLine.get(cmdLine.indexOf("-d") + 1).toString();
-            directory = new File(this.directory);
-            if (!directory.isDirectory()) System.out.println("Directory where you want to check does not exist!");
-            else System.out.println("Directory where you want to check the presence of a file: " + directory);
+        this.fileName=args[args.length-1];
+        if(args[0]=="-r"){
+            subDirectory=true;
         }
-
-        this.fileName = args[args.length - 1];
-
-        this.subDirectory=cmdLine.contains("-r");
-
+        File directory= new File(new File("").getAbsolutePath());
+        if(args[0].equals("-d")||args[1].equals("-d")){
+            directory=new File(this.directory);
+            System.out.println("Directory where you want to check the presence of a file: " + directory);
+        }else System.out.println("Find subdirectory");
         fileSearch.search(fileName, directory, subDirectory);
 
         System.out.println("The name of the found file: " + fileName);
