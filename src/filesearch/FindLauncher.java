@@ -41,24 +41,14 @@ public class FindLauncher {
             parser.printUsage(System.err);
             return;
         }
+
         if (args.length <= 1 || args.length > 4) {
             System.out.println("Command Line:[-r] [-d directory] filename.txt");
         } else {
             FileSearch fileSearch = new FileSearch();
-            this.fileName = args[args.length - 1];
-            if (args[0] == "-r") {
-                subDirectory = true;
-            }
-            File directory = new File(new File("").getAbsolutePath());
-            if (args[0].equals("-d") || args[1].equals("-d")) {
-                this.directory=args[args.length-2];
-                directory = new File(this.directory);
-                System.out.println("Directory where you want to check the presence of a file: " + directory);
-            } else System.out.println("Find subdirectory");
+            File directory = new File(new File(this.directory).getAbsolutePath());
             fileSearch.search(fileName, directory, subDirectory);
-
             System.out.println("The name of the found file: " + fileName);
-
             List<String> result = fileSearch.getResult();
             System.out.println("\nFound " + " result:\n");
             for (String str : result) {
